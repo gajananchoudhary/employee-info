@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { users } from '../../users-data/data'
+import { users } from '../../users-data/data';
+import { Router } from '@angular/router'
 
 interface PeriodicElement {
   id: number;
@@ -25,14 +26,18 @@ const ELEMENT_DATA: PeriodicElement[] = users.data;
 })
 export class DashboardComponent implements OnInit {
 
+  @Output() buttonClicked = new EventEmitter();
+
   numbers: any = /^[0-9]+$/;
+  id: any;
+  name: any;
 
   dataSource: MatTableDataSource<PeriodicElement>;
-  displayedColumns: string[] = ['id', 'name', 'phone', 'city', 'address1', 'address2', 'pincode'];
+  displayedColumns: string[] = ['id', 'name', 'phone', 'city', 'address1', 'address2', 'pincode', 'edit'];
   @ViewChild('TablePaginator', { static: true }) tablePaginator: MatPaginator;
   @ViewChild('TableSort', { static: true }) tableSort: MatSort;
 
-  constructor() {
+  constructor(private router: Router) {
     this.dataSource = new MatTableDataSource;
   }
 
@@ -44,6 +49,11 @@ export class DashboardComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onEdit(event) {
+    this.id = event.id;
+    this.router.navigate(['/employees/edit/'], { queryParams: { id: this.id, name: event.name, phone: event.phone, address1: event.address['address_line1'], address2: event.address['address_line2'], city: event.address['city'], postalCode: event.address['postal_code'] } });
   }
 
 }

@@ -1,0 +1,42 @@
+<div style="padding: 100px 30px;">
+        <h1 style="width: 45%;padding: 10px 25px;">Add New Employee</h1>
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmitUserDetails(employeeForm.value)">
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="Name" formControlName="name" />
+            <mat-error *ngFor="let validation of validation_messages.name">
+                <mat-error *ngIf="employeeForm.get('name').hasError(validation.type) && (employeeForm.get('name').dirty ||
+            employeeForm.get('name').touched)">{{validation.message}}
+                </mat-error>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="Phone" formControlName="phone" />
+            <mat-error *ngFor="let validation of validation_messages.phone">
+                    <mat-error *ngIf="employeeForm.get('phone').hasError(validation.type) && (employeeForm.get('phone').dirty ||
+                employeeForm.get('phone').touched)">{{validation.message}}
+                    </mat-error>
+                </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="City" formControlName="city" />
+        </mat-form-field>
+
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="Address Line 1" formControlName="address1" />
+        </mat-form-field>
+
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="Address Line 2" formControlName="address2" />
+        </mat-form-field>
+
+        <mat-form-field style="width: 45%;padding: 10px 25px;">
+            <input matInput placeholder="Postal Code" formControlName="postalCode" />
+        </mat-form-field>
+
+        <div style="width: 45%;padding: 10px 25px;">
+            <button class="submit-btn" type="submit" [disabled]="!employeeForm.valid">Submit</button>
+        </div>
+    </form>
+</div>
