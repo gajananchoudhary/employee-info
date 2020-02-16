@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new',
@@ -31,7 +32,7 @@ export class AddNewComponent implements OnInit {
     postalCode: new FormControl(''),
   });
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +42,7 @@ export class AddNewComponent implements OnInit {
     if (value.name && value.phone) {
       this.toastr.success("Employee Added Successfully");
       this.employeeForm.reset();
+      this.router.navigate(['/employees']);
     } else {
       this.toastr.error("Employee Not Added");
     }

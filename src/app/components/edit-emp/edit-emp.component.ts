@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-edit-emp',
@@ -34,7 +34,7 @@ export class EditEmpComponent implements OnInit {
 
   data : any;
 
-  constructor(private toastr: ToastrService,private activateRouter: ActivatedRoute) { }
+  constructor(private toastr: ToastrService,private activateRouter: ActivatedRoute, private router : Router) { }
 
   ngOnInit(): void {
      this.activateRouter
@@ -57,6 +57,7 @@ export class EditEmpComponent implements OnInit {
     if (value.name && value.phone) {
       this.toastr.success("Employee Updated Successfully");
       this.employeeForm.reset();
+      this.router.navigate(['/employees']);
     } else {
       this.toastr.error("Employee Not Added");
     }

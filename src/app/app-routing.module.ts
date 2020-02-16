@@ -6,9 +6,9 @@ import { EditEmpComponent } from './components/edit-emp/edit-emp.component'
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/employees', pathMatch: 'full'},
   {
-    path: 'dashboard',
+    path: 'employees',
     component: DashboardComponent,
   },
   {
