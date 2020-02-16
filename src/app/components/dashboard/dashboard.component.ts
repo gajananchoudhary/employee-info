@@ -1,20 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator'; 
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { data } from '../../users-data/data.json'
- 
+import { users } from '../../users-data/data'
+
 interface PeriodicElement {
-  id: string;
+  id: number;
   name: string;
   phone: string;
-  city: string;
-  address1: string;
-  address2: string;
-  pincode: string;
+  address: {
+    city: string;
+    address_line1: string;
+    address_line2: string;
+    postal_code: string;
+  }
 }
 
-const ELEMENT_DATA: PeriodicElement[] = data;
+const ELEMENT_DATA: PeriodicElement[] = users.data;
 
 @Component({
   selector: 'app-dashboard',
@@ -23,12 +25,12 @@ const ELEMENT_DATA: PeriodicElement[] = data;
 })
 export class DashboardComponent implements OnInit {
 
-  numbers : any = /^[0-9]+$/;
+  numbers: any = /^[0-9]+$/;
 
   dataSource: MatTableDataSource<PeriodicElement>;
   displayedColumns: string[] = ['id', 'name', 'phone', 'city', 'address1', 'address2', 'pincode'];
-  @ViewChild('TablePaginator', {static: true}) tablePaginator: MatPaginator;
-  @ViewChild('TableSort', {static: true}) tableSort: MatSort;
+  @ViewChild('TablePaginator', { static: true }) tablePaginator: MatPaginator;
+  @ViewChild('TableSort', { static: true }) tableSort: MatSort;
 
   constructor() {
     this.dataSource = new MatTableDataSource;
@@ -40,7 +42,7 @@ export class DashboardComponent implements OnInit {
     this.dataSource.sort = this.tableSort;
   }
 
-  applyFilterOne(filterValue: string) {
+  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
